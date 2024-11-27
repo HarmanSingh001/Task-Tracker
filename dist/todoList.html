@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>To-do List</title>
+</head>
+<body class="bodynaam w-full min-h-screen p-3" id="container" >
+    <div class="Todo-app max-w-xl bg-white mx-auto mt-24 mb-5 px-8 pt-10 pb-[70px] rounded-lg" >
+        <h2 class="ToDo-list text-3xl text-blue-950 flex items-center mb-5 font-bold">To-do List<img class="w-8 ml-3" src="images/icon.png" alt=""> </h2>
+        <dev class="bg-gray-200 flex items-center justify-between rounded-full pl-5 mb-6">
+            <input class="flex-[1] border-none outline-none bg-transparent p-3" type="text" placeholder="Add your text" id="input-box">
+            <button onclick="addTask()" class="border-none outline-none py-4 px-[50px] bg-[#ff5945] text-white text-xl cursor-pointer rounded-full ">Add</button>
+        </dev>
+        <ul class=" text-lg select-none cursor-pointer" id="list-container">
+            <!-- <li class="checked">Task 1</li>
+            <li>Task 2</li>
+            <li>Task 3</li> -->
+        </ul>
+    </div>
+</body>
+<script>
+    const inputBox = document.getElementById("input-box")
+    const ul = document.getElementById("list-container")
+    document.addEventListener('DOMContentLoaded', (event) => {
+            document.getElementById('input-box').addEventListener('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    addTask();
+                }
+            });
+            showTask();
+        });
+    function addTask() {
+        if (inputBox.value === '') {
+            alert("Write something first")
+        }
+        else{
+            let li = document.createElement("li");
+            li.innerHTML = inputBox.value;
+            ul.appendChild(li);
+            let span = document.createElement("span");
+            span.innerHTML = "\u00d7";
+            li.appendChild(span)
+        }
+        inputBox.value = ""
+        saveData(); 
+    }
+    ul.addEventListener("click", function (e) {
+        if(e.target.tagName ==="LI"){
+            e.target.classList.toggle("checked");
+            saveData();
+        }
+        else if (e.target.tagName === "SPAN") {
+            e.target.parentElement.remove();
+            saveData();
+        }
+    },false);
+
+function saveData() {
+    localStorage.setItem("data",ul.innerHTML);
+}
+function showTask() {
+    ul.innerHTML = localStorage.getItem("data");
+}
+showTask()
+</script>
+<style>
+*{
+    margin: 0;
+    padding: 0;
+    font-family:Georgia, 'Times New Roman', Times, serif Helvetica, sans-serif;
+    box-sizing: border-box;
+
+}
+#container{
+    background: linear-gradient(135deg, #153677,#4e085f);
+}
+ul li{
+    list-style: none;
+    padding: 12px 8px 12px 50px;
+    position: relative;
+}
+ul li::before{
+    content: " " ;
+    position: absolute;
+    height: 28px;
+    width: 28px;
+    border-radius: 50%;
+    background-image: url(images/unchecked.png);
+    background-size: cover;
+    background-position: cover;
+    top: 12px;
+    left: 8px;
+}
+ul li.checked{
+    color: #555;
+    text-decoration: line-through;
+}
+ul li.checked::before{
+    background-image: url(images/checked.png);
+}
+ul li span{
+    position:absolute;
+    right: 0;
+    top: 5px;
+    width: 40px;
+    height: 40px;
+    font-size: 22px;
+    color: #555;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 50%;
+}
+ul li span:hover{
+    background: #edeef0;
+}
+
+</style>
+</html>
