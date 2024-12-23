@@ -1,3 +1,5 @@
+![Project Preview](dist/images/img_readme.png)
+
 Task-Tracker ✅
 
 A simple and intuitive application built with HTML, CSS, and JavaScript. This project allows users to add, check off, and delete tasks. The tasks are saved to local storage, ensuring they persist across page reloads.
