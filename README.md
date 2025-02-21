@@ -1,4 +1,4 @@
-<h3 align="center">📝 Todo List App</h3>
+<h3 align="center">📝 Task Tracker</h3>
 
 The Todo List App is a sleek and efficient task management tool built with React.js and Tailwind CSS. It allows users to create, update, delete, and mark tasks as completed, all within a clean and intuitive user interface. The app is designed to be fast, responsive, and visually appealing, making it perfect for managing daily tasks.
 
