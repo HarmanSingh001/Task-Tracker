@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { TodoProvider } from "./contexts";
 import "./App.css";
 import TodoForm from "./components/TodoForm";
@@ -7,22 +7,21 @@ import TodoItem from "./components/TodoItem";
 function App() {
   const [todos, setTodos] = useState([]);
 
-  const addTodo = (todo) => {
+  const addTodo = useCallback((todo) => {
     setTodos((prev) => [{ id: Date.now(), ...todo }, ...prev]);
-  };
+  }, []);
 
-  const updateTodo = (id, todo) => {
+  const updateTodo = useCallback((id, todo) => {
     setTodos((prev) =>
       prev.map((prevTodo) => (prevTodo.id === id ? todo : prevTodo))
     );
-  };
+  }, []);
 
-  const deleteTodo = (id) => {
+  const deleteTodo = useCallback((id) => {
     setTodos((prev) => prev.filter((todo) => todo.id !== id));
-  };
+  }, []);
 
-  const toggleComplete = (id) => {
-    console.log(id);
+  const toggleComplete = useCallback((id) => {
     setTodos((prev) =>
       prev.map((prevTodo) =>
         prevTodo.id === id
@@ -30,19 +29,14 @@ function App() {
           : prevTodo
       )
     );
-  };
-  // ! Error
-  useEffect(() => {
-    try {
-      const todos = JSON.parse(localStorage.getItem("todos"));
+  }, []);
 
-      if (todos && todos.length > 0) {
-        setTodos(todos);
-      }
-    } catch (error) {
-      console.error("Error parsing JSON:", error);
+  useEffect(() => {
+    const savedTodos = JSON.parse(localStorage.getItem("todos")) || [];
+    if (savedTodos.length > 0) {
+      setTodos(savedTodos);
     }
-  }, [localStorage]);
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
@@ -52,17 +46,15 @@ function App() {
     <TodoProvider
       value={{ todos, addTodo, updateTodo, deleteTodo, toggleComplete }}
     >
-      <div className="bg-[#172842] min-h-screen py-8">
-        <div className="w-full max-w-2xl mx-auto shadow-md rounded-lg px-4 py-3 text-white">
-          <h1 className="text-2xl font-bold text-center mb-8 mt-2">
-            Manage Your Todos
+      <div className="bg-[#1E293B] min-h-screen py-8">
+        <div className="w-full max-w-2xl mx-auto shadow-lg rounded-lg px-4 py-6 bg-[#2D3748]">
+          <h1 className="text-3xl font-bold text-center mb-8 text-[#E2E8F0]">
+            Task Tracker
           </h1>
-          <div className="mb-4">
-            {/* Todo form goes here */}
+          <div className="mb-6">
             <TodoForm />
           </div>
-          <div className="flex flex-wrap gap-y-3">
-            {/*Loop and Add TodoItem here */}
+          <div className="flex flex-col gap-y-3">
             {todos.map((todo) => (
               <div key={todo.id} className="w-full">
                 <TodoItem todo={todo} />

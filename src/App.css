@@ -1,1 +1,20 @@
+/* Smooth transitions for buttons and inputs */
+button,
+input {
+  transition: all 0.2s ease-in-out;
+}
 
+/* Hover effects for buttons */
+button:hover {
+  transform: scale(1.05);
+}
+
+/* Focus effects for inputs */
+input:focus {
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.5);
+}
+
+/* Subtle shadow for todo items */
+.todo-item {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}

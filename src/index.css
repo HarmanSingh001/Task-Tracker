@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Custom Styles */
+@layer components {
+  .btn-primary {
+    @apply bg-[#6366F1] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#4F46E5] transition-all duration-200;
+  }
+
+  .btn-danger {
+    @apply bg-[#EF4444] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#DC2626] transition-all duration-200;
+  }
+
+  .input-field {
+    @apply w-full border border-[#4A5568] rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-[#6366F1] bg-[#2D3748] text-[#E2E8F0] placeholder-gray-400 transition-all duration-200;
+  }
+}
+
+/* Custom Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
